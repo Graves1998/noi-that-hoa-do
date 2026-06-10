@@ -1,0 +1,12 @@
+.dark {
+  background: var(--bg-dark);
+  border-color: rgba(255,255,255,.08);
+}
+.dark .marqueeItem {
+  color: rgba(255,255,255,.7);
+}
+.dot {
+  color: var(--gold);
+  font-size: .5em;
+  margin-right: 12px;
+}

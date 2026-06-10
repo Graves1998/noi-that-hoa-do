@@ -1,0 +1,25 @@
+.header { /* inherits hd-site from brand.css */ }
+
+.logoMark {
+  width: 34px;
+  height: 39px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform var(--t-base) var(--ease);
+}
+.header .logoMark:hover { transform: scale(1.06); }
+
+.cartBadge {
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--bg-dark);
+  font-size: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}

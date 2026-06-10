@@ -1,0 +1,204 @@
+/* ── Hero ─────────────────────────────────── */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--header-h) + var(--sp-16)) var(--sp-8) var(--sp-16);
+  background:
+    linear-gradient(160deg, rgba(199,163,93,.06) 0%, transparent 50%),
+    var(--bg-page);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -10%; top: 5%;
+  width: 55vw; height: 55vw;
+  max-width: 700px; max-height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199,163,93,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.heroH1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  color: var(--text-primary);
+  margin: var(--sp-4) 0 var(--sp-5);
+}
+.heroH1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.heroSub {
+  font-size: clamp(.95rem, 1.5vw, 1.1rem);
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: var(--sp-8);
+}
+
+.heroCta {
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+/* ── Section Shared ─────────────────────────── */
+.sectionHeader {
+  max-width: var(--max-w);
+  margin: 0 auto var(--sp-8);
+  padding: 0 var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  position: relative;
+}
+.sectionHeader h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+.seeAll {
+  position: absolute;
+  right: var(--sp-8); bottom: 0;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity var(--t-base) var(--ease);
+}
+.seeAll:hover { opacity: .7; }
+
+/* ── Category Section ───────────────────────── */
+.catSection {
+  padding: var(--sp-20) 0;
+  background: var(--bg-page);
+}
+
+.catGrid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-8);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-4);
+}
+@media (max-width: 900px) {
+  .catGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .catGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.catCard {
+  display: block;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  text-decoration: none;
+  position: relative;
+  aspect-ratio: 3/4;
+  background: var(--bg-subtle);
+}
+.catImg {
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform .55s var(--ease);
+}
+.catCard:hover .catImg { transform: scale(1.06); }
+.catLabel {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 100%);
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+}
+
+/* ── Featured Products ──────────────────────── */
+.featuredSection {
+  padding: var(--sp-20) 0;
+  background: var(--bg-subtle);
+}
+
+.prodGrid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-8);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-5);
+}
+@media (max-width: 1100px) {
+  .prodGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .prodGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .prodGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Story Section ──────────────────────────── */
+.storySection {
+  padding: var(--sp-24) var(--sp-8);
+  background: var(--bg-page);
+}
+
+.storyInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-16);
+  align-items: center;
+}
+@media (max-width: 800px) {
+  .storyInner { grid-template-columns: 1fr; }
+  .storyImg { order: -1; }
+}
+
+.storyText { display: flex; flex-direction: column; gap: var(--sp-4); }
+.storyText h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+.storyText p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.storyImg {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.storyImg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
