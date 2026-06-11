@@ -1,0 +1,77 @@
+.accordion {
+  border-top: 1px solid var(--border);
+}
+
+.item {
+  border-bottom: 1px solid var(--border);
+}
+
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-6) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text-primary);
+  text-align: left;
+  transition: color var(--t-fast) var(--ease);
+}
+.trigger:hover { color: var(--gold); }
+
+.chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.chevronOpen {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--t-base) var(--ease);
+}
+.panelOpen {
+  grid-template-rows: 1fr;
+}
+.panelInner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.content {
+  padding-bottom: var(--sp-6);
+  font-size: .85rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── Specs table (used inside accordion content) ─ */
+.specsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.specsTable td {
+  padding: 8px 0;
+  font-size: .84rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.specsTable tr:last-child td { border-bottom: none; }
+.specsTable td:first-child {
+  color: var(--text-muted);
+  width: 45%;
+  padding-right: var(--sp-4);
+}
+.specsTable td:last-child { color: var(--text-primary); font-weight: 500; }

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { gsap } from 'gsap'
-import { useCart } from '@context/CartContext'
-import { useToast } from '@context/ToastContext'
 import Breadcrumb from '@components/ui/Breadcrumb/Breadcrumb'
-import FeaturesBar from '@components/ui/FeaturesBar/FeaturesBar'
+import Accordion from '@components/ui/Accordion/Accordion'
 import ProductCard from '@components/ui/ProductCard/ProductCard'
-import { getProductBySlug, getRelatedProducts, formatPrice } from '@data/products'
+import { getProductBySlug, getRelatedProducts, formatPrice, getCareInstructions, DELIVERY_INFO } from '@data/products'
+import accStyles from '@components/ui/Accordion/Accordion.module.css'
 import styles from './ProductDetail.module.css'
 
 export default function ProductDetail() {
@@ -14,12 +13,8 @@ export default function ProductDetail() {
   const product = getProductBySlug(slug)
   const related = product ? getRelatedProducts(product) : []
 
-  const { addItem } = useCart()
-  const { showToast } = useToast()
-
   const [activeImg, setActiveImg] = useState(0)
   const [activeSwatch, setActiveSwatch] = useState(0)
-  const [qty, setQty] = useState(1)
 
   const imgRef = useRef(null)
   const infoRef = useRef(null)
@@ -27,7 +22,6 @@ export default function ProductDetail() {
   useEffect(() => {
     setActiveImg(0)
     setActiveSwatch(0)
-    setQty(1)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [slug])
 
@@ -49,10 +43,49 @@ export default function ProductDetail() {
     )
   }
 
-  const addToCart = () => {
-    for (let i = 0; i < qty; i++) addItem(product)
-    showToast(`Đã thêm "${product.name}" vào giỏ hàng`)
-  }
+  const accordionItems = [
+    {
+      title: 'Mô tả sản phẩm',
+      content: <p>{product.description}</p>,
+    },
+    ...(product.specs && Object.keys(product.specs).length > 0
+      ? [{
+          title: 'Thông số kỹ thuật',
+          content: (
+            <table className={accStyles.specsTable}>
+              <tbody>
+                {Object.entries(product.specs).map(([key, val]) => (
+                  <tr key={key}>
+                    <td>{key}</td>
+                    <td>{val}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ),
+        }]
+      : []),
+    ...(product.specs && product.specs['Kích thước']
+      ? [{
+          title: 'Kích thước & Trọng lượng',
+          content: (
+            <p>
+              Kích thước: {product.specs['Kích thước']}. Thông số có thể chênh lệch nhẹ
+              (1–2cm) tùy theo lô sản xuất. Vui lòng liên hệ với chúng tôi nếu bạn cần
+              thông tin chi tiết hơn trước khi đặt hàng.
+            </p>
+          ),
+        }]
+      : []),
+    {
+      title: 'Hướng dẫn bảo quản',
+      content: <p>{getCareInstructions(product)}</p>,
+    },
+    {
+      title: 'Vận chuyển & Đổi trả',
+      content: <p>{DELIVERY_INFO}</p>,
+    },
+  ]
 
   return (
     <div className={styles.page}>
@@ -115,6 +148,14 @@ export default function ProductDetail() {
             )}
           </div>
 
+          <div className={styles.rating} aria-label="Đánh giá 5 sao">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <svg key={i} className={styles.star} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5l2.95 6.46 7.05.66-5.32 4.74 1.6 6.94-6.28-3.7-6.28 3.7 1.6-6.94L2 9.62l7.05-.66z" />
+              </svg>
+            ))}
+          </div>
+
           <p className={styles.desc}>{product.description}</p>
 
           {/* Swatches */}
@@ -127,54 +168,26 @@ export default function ProductDetail() {
                 {product.swatches.map((sw, i) => (
                   <button
                     key={sw.id}
-                    className={`${styles.swatch} ${i === activeSwatch ? styles.swatchActive : ''}`}
-                    style={{ background: sw.color }}
+                    type="button"
+                    className={`${styles.swatchRing} ${i === activeSwatch ? styles.swatchRingActive : ''}`}
                     title={sw.label}
+                    aria-label={sw.label}
+                    aria-pressed={i === activeSwatch}
                     onClick={() => setActiveSwatch(i)}
-                  />
+                  >
+                    <span className={styles.swatchDot} style={{ background: sw.color }} />
+                  </button>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Qty + Cart */}
-          <div className={styles.actions}>
-            <div className={styles.qtyControl}>
-              <button onClick={() => setQty((q) => Math.max(1, q - 1))}>−</button>
-              <span>{qty}</span>
-              <button onClick={() => setQty((q) => q + 1)}>+</button>
-            </div>
-            <button className={`${styles.btnCart} btn btn--primary`} onClick={addToCart}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <path d="M16 10a4 4 0 0 1-8 0" />
-              </svg>
-              Thêm vào giỏ
-            </button>
+          {/* Product details accordion */}
+          <div className={styles.detailsAccordion}>
+            <Accordion items={accordionItems} />
           </div>
-
-          {/* Specs */}
-          {product.specs && Object.keys(product.specs).length > 0 && (
-            <div className={styles.specs}>
-              <h3>Thông số kỹ thuật</h3>
-              <table>
-                <tbody>
-                  {Object.entries(product.specs).map(([key, val]) => (
-                    <tr key={key}>
-                      <td>{key}</td>
-                      <td>{val}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
         </div>
       </div>
-
-      {/* Features */}
-      <FeaturesBar />
 
       {/* Related products */}
       {related.length > 0 && (

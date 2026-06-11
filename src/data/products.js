@@ -610,3 +610,27 @@ export const getRelatedProducts = (product, count = 3) =>
         .slice(0, Math.max(0, count - products.filter((p) => p.id !== product.id && p.category === product.category).length))
     )
     .slice(0, count)
+
+// ── Hướng dẫn bảo quản theo nhóm danh mục ─────────────────────────
+const CARE_BY_CATEGORY = {
+  sofa: 'Hút bụi định kỳ để loại bỏ bụi bẩn trên bề mặt vải. Lau vết bẩn nhẹ bằng khăn ẩm và dung dịch tẩy rửa trung tính, tránh chà xát mạnh. Không để đồ nội thất tiếp xúc trực tiếp với ánh nắng gắt trong thời gian dài để giữ màu vải bền đẹp.',
+  armchair: 'Hút bụi định kỳ để loại bỏ bụi bẩn trên bề mặt vải. Lau vết bẩn nhẹ bằng khăn ẩm và dung dịch tẩy rửa trung tính, tránh chà xát mạnh. Không để đồ nội thất tiếp xúc trực tiếp với ánh nắng gắt trong thời gian dài để giữ màu vải bền đẹp.',
+  chair: 'Lau bề mặt bằng khăn mềm, khô hoặc hơi ẩm. Tránh đặt ở nơi có độ ẩm cao hoặc tiếp xúc trực tiếp với nước trong thời gian dài. Kiểm tra và siết lại ốc vít định kỳ để đảm bảo độ chắc chắn.',
+  table: 'Lau bề mặt gỗ bằng khăn mềm, khô. Tránh đặt vật nóng hoặc ẩm trực tiếp lên mặt bàn, nên sử dụng lót bàn để bảo vệ lớp hoàn thiện. Vệ sinh định kỳ bằng dung dịch chuyên dụng cho đồ gỗ để giữ độ bóng tự nhiên.',
+  desk: 'Lau bề mặt gỗ bằng khăn mềm, khô. Tránh đặt vật nóng hoặc ẩm trực tiếp lên mặt bàn, nên sử dụng lót bàn để bảo vệ lớp hoàn thiện. Vệ sinh định kỳ bằng dung dịch chuyên dụng cho đồ gỗ để giữ độ bóng tự nhiên.',
+  storage: 'Lau bề mặt bằng khăn mềm, khô hoặc hơi ẩm, tránh dùng hoá chất tẩy rửa mạnh làm hỏng lớp sơn phủ. Đặt ở nơi khô ráo, thoáng khí để hạn chế ẩm mốc. Tránh xếp quá tải trọng cho phép của từng ngăn kệ.',
+  bedroom: 'Vệ sinh khung giường và đầu giường bằng khăn mềm, khô. Với phần bọc vải, hút bụi định kỳ và lau vết bẩn bằng dung dịch tẩy rửa trung tính. Kiểm tra và siết lại các khớp nối định kỳ để đảm bảo độ chắc chắn.',
+  lighting: 'Lau bề mặt đèn bằng khăn khô, mềm để tránh trầy xước. Tắt nguồn điện trước khi vệ sinh. Tránh để đèn tiếp xúc với nước hoặc môi trường ẩm ướt.',
+  decor: 'Lau bề mặt bằng khăn mềm, khô. Tránh va đập mạnh và để ở nơi khô ráo, thoáng mát để giữ độ bền của sản phẩm.',
+}
+const CARE_DEFAULT = 'Lau bề mặt bằng khăn mềm, khô hoặc hơi ẩm. Tránh đặt ở nơi có độ ẩm cao hoặc tiếp xúc trực tiếp với ánh nắng gắt trong thời gian dài. Vệ sinh định kỳ để giữ sản phẩm luôn bền đẹp.'
+
+export const getCareInstructions = (product) =>
+  CARE_BY_CATEGORY[product.category] || CARE_DEFAULT
+
+// ── Thông tin vận chuyển & đổi trả (chính sách chung) ─────────────
+export const DELIVERY_INFO =
+  'Giao hàng toàn quốc trong 5–10 ngày làm việc, miễn phí cho đơn hàng từ 5.000.000₫. ' +
+  'Đội ngũ vận chuyển và lắp đặt chuyên nghiệp sẽ liên hệ trước để sắp xếp thời gian phù hợp. ' +
+  'Hỗ trợ đổi trả trong vòng 7 ngày kể từ ngày nhận hàng đối với sản phẩm còn nguyên vẹn, ' +
+  'chưa qua sử dụng và còn đầy đủ bao bì gốc.'

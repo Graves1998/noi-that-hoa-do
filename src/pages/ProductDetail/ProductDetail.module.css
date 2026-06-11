@@ -11,7 +11,7 @@
 
 /* ── Breadcrumb ───────────────────────────── */
 .breadcrumbWrap {
-  padding: calc(var(--header-h) + var(--sp-6)) var(--sp-8) var(--sp-4);
+  padding: calc(var(--header-h) + var(--sp-6)) var(--sp-8) var(--sp-5);
   border-bottom: 1px solid var(--border);
   background: var(--bg-subtle);
 }
@@ -20,17 +20,17 @@
 .product {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--sp-14);
-  padding-top: var(--sp-10);
-  padding-bottom: var(--sp-20);
+  gap: var(--sp-16);
+  padding-top: var(--sp-12);
+  padding-bottom: var(--sp-24);
   align-items: start;
 }
 @media (max-width: 800px) {
-  .product { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .product { grid-template-columns: 1fr; gap: var(--sp-10); }
 }
 
 /* ── Gallery ──────────────────────────────── */
-.gallery { display: flex; flex-direction: column; gap: var(--sp-3); position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
+.gallery { display: flex; flex-direction: column; gap: var(--sp-4); position: sticky; top: calc(var(--header-h) + var(--sp-6)); }
 
 .mainImg {
   position: relative;
@@ -61,7 +61,7 @@
 .badgeNew  { background: var(--gold); color: var(--bg-dark); }
 .badgeSale { background: #c0392b; color: #fff; }
 
-.thumbs { display: flex; gap: var(--sp-2); }
+.thumbs { display: flex; gap: var(--sp-3); }
 .thumb {
   width: 72px; height: 72px;
   border-radius: 8px;
@@ -77,7 +77,7 @@
 .thumbActive { border-color: var(--gold); }
 
 /* ── Info ─────────────────────────────────── */
-.info { display: flex; flex-direction: column; gap: var(--sp-5); }
+.info { display: flex; flex-direction: column; gap: var(--sp-6); }
 
 .name {
   font-family: var(--font-display);
@@ -91,17 +91,20 @@
 .priceRow {
   display: flex;
   align-items: baseline;
-  gap: var(--sp-3);
+  gap: var(--sp-4);
   flex-wrap: wrap;
 }
 .price {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: .02em;
   color: var(--gold);
 }
 .originalPrice {
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: .02em;
   color: var(--text-muted);
   text-decoration: line-through;
 }
@@ -114,6 +117,15 @@
   border-radius: 12px;
 }
 
+/* ── Rating ───────────────────────────────── */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold);
+}
+.star { width: 16px; height: 16px; }
+
 .desc {
   color: var(--text-secondary);
   line-height: 1.75;
@@ -121,99 +133,37 @@
 }
 
 /* ── Swatches ─────────────────────────────── */
-.swatchGroup { display: flex; flex-direction: column; gap: var(--sp-2); }
+.swatchGroup { display: flex; flex-direction: column; gap: var(--sp-3); }
 .optLabel { font-size: .82rem; color: var(--text-muted); margin: 0; }
-.swatches { display: flex; gap: var(--sp-2); }
-.swatch {
+.swatches { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.swatchRing {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color var(--t-base) var(--ease);
+}
+.swatchRingActive { border-color: var(--text-primary); }
+.swatchDot {
   width: 28px; height: 28px;
   border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  outline: 3px solid transparent;
-  transition: outline-color var(--t-base) var(--ease);
-  padding: 0;
-}
-.swatchActive { outline-color: var(--gold); outline-offset: 2px; }
-
-/* ── Actions ──────────────────────────────── */
-.actions {
-  display: flex;
-  gap: var(--sp-3);
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.qtyControl {
-  display: flex;
-  align-items: center;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--bg-card);
-}
-.qtyControl button {
-  background: none;
-  border: none;
-  width: 38px; height: 44px;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: background var(--t-base) var(--ease);
-}
-.qtyControl button:hover { background: var(--bg-subtle); }
-.qtyControl span {
-  width: 40px;
-  text-align: center;
-  font-weight: 600;
-  font-size: .95rem;
-  color: var(--text-primary);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
 }
 
-.btnCart {
-  flex: 1;
-  min-width: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-2);
+/* ── Product details accordion ───────────── */
+.detailsAccordion {
+  margin-top: var(--sp-4);
 }
-
-/* ── Specs ────────────────────────────────── */
-.specs {
-  border-top: 1px solid var(--border);
-  padding-top: var(--sp-6);
-}
-.specs h3 {
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin: 0 0 var(--sp-4);
-}
-.specs table { width: 100%; border-collapse: collapse; }
-.specs td {
-  padding: 8px 0;
-  font-size: .84rem;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-.specs td:first-child {
-  color: var(--text-muted);
-  width: 45%;
-  padding-right: var(--sp-4);
-}
-.specs td:last-child { color: var(--text-primary); font-weight: 500; }
 
 /* ── Related ──────────────────────────────── */
 .related {
-  padding: var(--sp-20) 0;
+  padding: var(--sp-24) 0;
   background: var(--bg-subtle);
 }
 .related h2 {
@@ -221,12 +171,12 @@
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 600;
   color: var(--text-primary);
-  margin: var(--sp-2) 0 var(--sp-8);
+  margin: var(--sp-2) 0 var(--sp-10);
 }
 .relatedGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-5);
+  gap: var(--sp-6);
 }
 @media (max-width: 900px) { .relatedGrid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .relatedGrid { grid-template-columns: 1fr; } }
