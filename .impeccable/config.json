@@ -1,0 +1,74 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "#c0392b",
+        "reason": "Intentional sale badge color",
+        "createdAt": "2026-06-24T14:06:15.708Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(192,57,43,.12)",
+        "reason": "Intentional discount pill bg",
+        "createdAt": "2026-06-24T14:06:25.214Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0, 0, 0, 0.6)",
+        "reason": "Intentional gradient overlay",
+        "createdAt": "2026-06-24T14:06:25.280Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0, 0, 0, 0.1)",
+        "reason": "Intentional gradient overlay",
+        "createdAt": "2026-06-24T14:06:25.346Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0,0,0,.6)",
+        "reason": "Intentional gradient overlay",
+        "createdAt": "2026-06-24T14:06:25.411Z"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "20px",
+        "reason": "Intentional badge pill radius",
+        "createdAt": "2026-06-24T14:06:25.477Z"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "10px",
+        "reason": "Intentional input border radius",
+        "createdAt": "2026-06-24T14:06:25.542Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0, 0, 0, 0.55)",
+        "reason": "Intentional Blog hero gradient overlay",
+        "createdAt": "2026-06-24T14:19:05.200Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0, 0, 0, 0.15)",
+        "reason": "Intentional Blog hero gradient overlay",
+        "createdAt": "2026-06-24T14:19:05.267Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0,0,0,.15)",
+        "reason": "Intentional Shop overlay gradient",
+        "createdAt": "2026-06-24T14:19:05.329Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0,0,0,.4)",
+        "reason": "Intentional Shop overlay gradient",
+        "createdAt": "2026-06-24T14:19:05.391Z"
+      }
+    ]
+  }
+}

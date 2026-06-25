@@ -35,7 +35,7 @@ export default function Header() {
             <NavLink to="/" end>Trang chủ</NavLink>
             <NavLink to="/shop">Cửa hàng</NavLink>
             <a href="#">Giới thiệu</a>
-            <a href="#">Blog</a>
+            <NavLink to="/blog">Blog</NavLink>
             <a href="#">Liên hệ</a>
           </nav>
 
@@ -48,6 +48,8 @@ export default function Header() {
               className={`hd-burger ${mobileOpen ? 'open' : ''}`}
               onClick={() => setMobileOpen((o) => !o)}
               aria-label="Menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
               <span /><span /><span />
             </button>
@@ -56,11 +58,11 @@ export default function Header() {
       </header>
 
       {/* Mobile Nav */}
-      <nav className={`hd-mobile-nav ${mobileOpen ? 'open' : ''}`}>
+      <nav id="mobile-nav" className={`hd-mobile-nav ${mobileOpen ? 'open' : ''}`}>
         <NavLink to="/"     end onClick={closeMenu}>Trang chủ</NavLink>
         <NavLink to="/shop"     onClick={closeMenu}>Cửa hàng</NavLink>
         <a href="#" onClick={closeMenu}>Giới thiệu</a>
-        <a href="#" onClick={closeMenu}>Blog</a>
+        <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
         <a href="#" onClick={closeMenu}>Liên hệ</a>
         <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '8px 0' }} />
         <a href="tel:19001234" style={{ fontSize: '1.1rem', color: 'var(--gold)' }}>1900 1234</a>

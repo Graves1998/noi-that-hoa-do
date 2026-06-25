@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-24T20:45:00.000Z",
+  "title": "Design System: Nội thất Hoa Đô",
+  "extensions": {
+    "colorMeta": {
+      "golden-sand": {
+        "role": "primary",
+        "displayName": "Golden Sand",
+        "canonical": "oklch(73% 0.1 75)",
+        "tonalRamp": ["#3A2D16", "#5C4A28", "#7E673A", "#A8804A", "#C7A35D", "#D4B87A", "#E6D5A8", "#F3EBDA"]
+      },
+      "charcoal": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "canonical": "oklch(25% 0 0)",
+        "tonalRamp": ["#111111", "#1A1A1A", "#2B2B2B", "#3A3A3A", "#4A4A4A", "#6B6B6B", "#A8A8A8", "#D4D4D4"]
+      },
+      "ivory-mist": {
+        "role": "neutral",
+        "displayName": "Ivory Mist",
+        "canonical": "oklch(96% 0.012 80)",
+        "tonalRamp": ["#7A7568", "#9E9888", "#BEB8A8", "#D4CEC0", "#E4DDD2", "#EDE8DF", "#F5F2EC", "#FDFCFA"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page heroes, section headings. The showroom's signage." },
+      "headline": { "displayName": "Headline", "purpose": "Sub-section headings, product collection titles." },
+      "title": { "displayName": "Title", "purpose": "Card titles, product names." },
+      "body": { "displayName": "Body", "purpose": "Running text, descriptions. 65-75ch max." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, category tags, navigation, metadata." }
+    },
+    "shadows": [
+      { "name": "shadow-xs", "value": "0 1px 3px rgba(43,43,43,.05)", "purpose": "Default resting state for flat elements." },
+      { "name": "shadow-sm", "value": "0 2px 8px rgba(43,43,43,.07)", "purpose": "Cards and elevated surfaces at rest." },
+      { "name": "shadow-md", "value": "0 4px 20px rgba(43,43,43,.10)", "purpose": "Hover states, focused elements, dropdowns." },
+      { "name": "shadow-lg", "value": "0 12px 40px rgba(43,43,43,.14)", "purpose": "Modals, lifted cards on hover." },
+      { "name": "shadow-gold", "value": "0 4px 20px rgba(199,163,93,.20)", "purpose": "Primary buttons only. The only tinted shadow." }
+    ],
+    "motion": [
+      { "name": "ease-default", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "Primary easing for most transitions. Fast start, gentle deceleration." },
+      { "name": "ease-spring", "value": "cubic-bezier(.34,1.56,.64,1)", "purpose": "Overshoot for interactive feedback: button active, menu open." },
+      { "name": "ease-inout", "value": "cubic-bezier(.37,0,.63,1)", "purpose": "Symmetrical easing for scroll-driven animations." },
+      { "name": "duration-fast", "value": "0.15s", "purpose": "Micro-interactions: hover color, focus ring." },
+      { "name": "duration-base", "value": "0.25s", "purpose": "Standard transitions: nav underline, button lift." },
+      { "name": "duration-slow", "value": "0.45s", "purpose": "Entrance animations, image scale on hover." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "960px" },
+      { "name": "lg", "value": "1200px" },
+      { "name": "xl", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Golden Sand CTA. The showroom's invitation to act.",
+      "html": "<button class=\"ds-btn-primary\">KHÁM PHÁ <svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\"><path d=\"M5 12h14M12 5l7 7-7 7\" stroke=\"currentColor\" fill=\"none\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: #C7A35D; color: #2B2B2B; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; box-shadow: 0 4px 20px rgba(199,163,93,.20); transition: background 0.25s, transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s; } .ds-btn-primary:hover { background: #A8804A; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(199,163,93,.35); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary svg { width: 14px; height: 14px; transition: transform 0.25s cubic-bezier(.34,1.56,.64,1); } .ds-btn-primary:hover svg { transform: translateX(3px); }"
+    },
+    {
+      "name": "Dark Button",
+      "kind": "button",
+      "refersTo": "button-dark",
+      "description": "Charcoal secondary CTA for light backgrounds.",
+      "html": "<button class=\"ds-btn-dark\">XEM THÊM</button>",
+      "css": ".ds-btn-dark { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: #2B2B2B; color: #F5F2EC; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; transition: background 0.25s, transform 0.25s cubic-bezier(.34,1.56,.64,1); } .ds-btn-dark:hover { background: #3A3A3A; transform: translateY(-2px); } .ds-btn-dark:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Transparent with Charcoal border. Fills on hover.",
+      "html": "<button class=\"ds-btn-outline\">CHI TIẾT</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: transparent; color: #2B2B2B; font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; border: 1.5px solid #2B2B2B; border-radius: 4px; cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.25s cubic-bezier(.34,1.56,.64,1); } .ds-btn-outline:hover { background: #2B2B2B; color: #F5F2EC; transform: translateY(-2px); } .ds-btn-outline:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card-product",
+      "description": "Product display card with hover lift and image zoom.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-img\"><img src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='375' fill='%23EDE8DF'%3E%3Crect width='300' height='375'/%3E%3C/svg%3E\" alt=\"Product\"/></div><div class=\"ds-card-body\"><span class=\"ds-card-name\">Ghế Sofa Elise</span><div class=\"ds-card-price\"><span class=\"ds-price-now\">12.500.000₫</span><span class=\"ds-price-was\">15.000.000₫</span></div></div></div>",
+      "css": ".ds-card { background: #FFFFFF; border-radius: 12px; overflow: hidden; cursor: pointer; box-shadow: 0 2px 8px rgba(43,43,43,.07); transition: transform 0.25s cubic-bezier(.16,1,.3,1), box-shadow 0.25s cubic-bezier(.16,1,.3,1); } .ds-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(43,43,43,.14); } .ds-card-img { aspect-ratio: 4/5; overflow: hidden; background: #EDE8DF; } .ds-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s cubic-bezier(.16,1,.3,1); } .ds-card:hover .ds-card-img img { transform: scale(1.06); } .ds-card-body { padding: 16px 20px 20px; } .ds-card-name { font-family: Cormorant Garamond, Georgia, serif; font-size: 1.05rem; font-weight: 500; color: #2B2B2B; display: block; margin-bottom: 8px; transition: color 0.15s; } .ds-card:hover .ds-card-name { color: #A8804A; } .ds-card-price { display: flex; align-items: baseline; gap: 8px; } .ds-price-now { font-size: 0.85rem; font-weight: 600; color: #2B2B2B; } .ds-price-was { font-size: 0.78rem; color: #A8A8A8; text-decoration: line-through; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Standard form input with gold focus border.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Nhập email của bạn\" />",
+      "css": ".ds-input { width: 100%; padding: 11px 16px; border: 1px solid #E4DDD2; border-radius: 4px; background: #FFFFFF; font-family: Inter, sans-serif; font-size: 0.85rem; color: #2B2B2B; outline: none; transition: border-color 0.15s; } .ds-input:focus { border-color: #C7A35D; } .ds-input::placeholder { color: #A8A8A8; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Desktop nav link with gold underline reveal.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">CỬA HÀNG</a>",
+      "css": ".ds-nav-link { font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: #4A4A4A; text-decoration: none; position: relative; padding-bottom: 3px; transition: color 0.25s; } .ds-nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px; background: #C7A35D; transform: scaleX(0); transform-origin: left; transition: transform 0.25s cubic-bezier(.34,1.56,.64,1); } .ds-nav-link:hover { color: #2B2B2B; } .ds-nav-link:hover::after { transform: scaleX(1); }"
+    },
+    {
+      "name": "Category Pill",
+      "kind": "chip",
+      "refersTo": "pill-filter",
+      "description": "Filter pill for blog/shop categories.",
+      "html": "<button class=\"ds-pill\">Phòng khách</button><button class=\"ds-pill ds-pill-active\">Tất cả</button>",
+      "css": ".ds-pill { padding: 8px 20px; border: 1px solid #E4DDD2; border-radius: 100px; background: transparent; font-family: Inter, sans-serif; font-size: 0.8rem; font-weight: 500; color: #4A4A4A; cursor: pointer; transition: all 0.25s cubic-bezier(.16,1,.3,1); } .ds-pill:hover { border-color: #2B2B2B; color: #2B2B2B; } .ds-pill-active { background: #2B2B2B; border-color: #2B2B2B; color: #FFFFFF; } .ds-pill-active:hover { background: #2B2B2B; border-color: #2B2B2B; color: #FFFFFF; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Showroom",
+    "overview": "Hoa Đô's digital presence is a curated showroom where silence speaks. Every surface, every transition, every typographic choice serves one purpose: to let the furniture command the room. The interface recedes — generous whitespace, muted tones, precise alignments — so the product photography can do what no UI element can: make someone want to touch a screen.\n\nThe system rejects noise. No promotional banners fighting for attention (this is not Shopee). No identical card grids filling space (this is not IKEA). No gradient-text hero metrics (this is not a SaaS pitch deck). Hoa Đô's brand is carried by restraint: the gold accent appears sparingly, the typography whispers authority, and the page rhythm mimics the experience of walking through a physical showroom — expansive moments, intimate pauses, deliberate reveals.",
+    "keyCharacteristics": [
+      "Photography-first: UI exists to frame, not to compete",
+      "Restrained color: warm neutrals + one disciplined accent",
+      "Serif + sans pairing for editorial authority",
+      "Scroll-driven choreography with GSAP, never gratuitous",
+      "Dark sections as contrast punctuation, not default"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Golden Sand is the only chromatic accent. No secondary color, no tertiary color. If a new element needs color, it uses Golden Sand or a transparency of it.", "section": "colors" },
+      { "name": "The Quiet Authority Rule", "body": "Display headings never shout. Maximum clamp ceiling is 5rem for hero-scale text. Letter-spacing stays at -0.015em.", "section": "typography" },
+      { "name": "The Warm Lift Rule", "body": "Shadows use the Charcoal tone (43,43,43), never pure black. The gold-tinted shadow is reserved for primary buttons — nowhere else.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do let product photography fill at least 40% of any homepage viewport.",
+      "Do use Golden Sand exclusively for interactive accents. Its rarity is the system's discipline.",
+      "Do vary section spacing for rhythm. Not every section gets the same padding.",
+      "Do use GSAP ScrollTrigger for entrance animations. Each reveal should fit what it reveals.",
+      "Do include @media (prefers-reduced-motion: reduce) alternatives for every animation.",
+      "Do maintain ≥4.5:1 contrast ratio for all body text."
+    ],
+    "donts": [
+      "Don't add a second accent color. Golden Sand is the only chromatic voice.",
+      "Don't use identical card grids as the default layout.",
+      "Don't use gradient text, glassmorphism cards, or hero-metric templates.",
+      "Don't add promotional banners, flash sale ribbons, or discount-heavy layouts.",
+      "Don't use side-stripe borders (border-left > 1px as colored accent).",
+      "Don't put numbered section markers (01/02/03) on every section.",
+      "Don't apply eyebrow kickers above every section heading.",
+      "Don't exceed 5rem for hero heading clamp max."
+    ]
+  }
+}

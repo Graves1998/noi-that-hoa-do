@@ -1,5 +1,7 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ProductGrid from '@components/ui/ProductGrid/ProductGrid'
 import ShopBanner from '@components/ui/ShopBanner/ShopBanner'
 import ShopSidebar from '@components/ui/ShopSidebar/ShopSidebar'
@@ -7,6 +9,8 @@ import FeaturesBar from '@components/ui/FeaturesBar/FeaturesBar'
 import { products } from '@data/products'
 import { categories, collections } from '@data/categories'
 import styles from './Shop.module.css'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const SORT_OPTIONS = [
   { value: 'default',    label: 'Mặc định' },
@@ -23,6 +27,7 @@ const AVAILABILITY_OPTIONS = [
 const PAGE_SIZE = 6
 
 export default function Shop() {
+  const pageRef = useRef(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const catParam = searchParams.get('cat') || 'all'
 
@@ -72,6 +77,37 @@ export default function Shop() {
   const hasActiveFilters =
     activeCategory !== 'all' || activeCollection !== 'all' || activeAvailability.length > 0
 
+  // GSAP scroll animations
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const ctx = gsap.context(() => {
+      // Toolbar entrance
+      gsap.from('.shop-toolbar', {
+        opacity: 0, y: 30, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.shop-toolbar', start: 'top 90%' }
+      })
+
+      // Category chips stagger
+      gsap.from('.shop-chip', {
+        opacity: 0, scale: 0.85, stagger: 0.05, duration: 0.4, ease: 'power3.out',
+        scrollTrigger: { trigger: '.shop-toolbar', start: 'top 88%' }
+      })
+
+      // Product cards stagger
+      gsap.from('.shop-grid [class*="card"]', {
+        opacity: 0, y: 50, scale: 0.95, stagger: 0.08, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: '.shop-grid', start: 'top 82%' }
+      })
+
+      // Promo section
+      gsap.from('.shop-promo', {
+        opacity: 0, y: 60, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: '.shop-promo', start: 'top 78%' }
+      })
+    }, pageRef)
+    return () => ctx.revert()
+  }, [])
+
   const filtered = useMemo(() => {
     let list = [...products]
     if (activeCategory !== 'all') list = list.filter((p) => p.category === activeCategory)
@@ -87,7 +123,7 @@ export default function Shop() {
   const canLoadMore = visibleCount < filtered.length
 
   return (
-    <div className={styles.shopPage}>
+    <div className={styles.shopPage} ref={pageRef}>
       {/* Banner */}
       <ShopBanner
         title="Cửa hàng"
@@ -116,13 +152,20 @@ export default function Shop() {
 
         {/* Overlay */}
         {sidebarOpen && (
-          <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
+          <div
+            className={styles.overlay}
+            onClick={() => setSidebarOpen(false)}
+            onKeyDown={(e) => { if (e.key === 'Escape' || e.key === 'Enter') setSidebarOpen(false) }}
+            role="button"
+            tabIndex={0}
+            aria-label="Đóng bộ lọc"
+          />
         )}
 
         {/* Main content */}
         <main className={styles.main}>
           {/* Toolbar */}
-          <div className={styles.toolbar}>
+          <div className={`shop-toolbar ${styles.toolbar}`}>
             <button className={styles.filterToggle} onClick={() => setSidebarOpen(true)}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
                 <line x1="4" y1="6" x2="20" y2="6" />
@@ -135,15 +178,18 @@ export default function Shop() {
               {categories.slice(0, 5).map((cat) => (
                 <button
                   key={cat.id}
-                  className={`${styles.chip} ${activeCategory === cat.id ? styles.chipActive : ''}`}
+                  className={`shop-chip ${styles.chip} ${activeCategory === cat.id ? styles.chipActive : ''}`}
                   onClick={() => setCategory(cat.id)}
+                  aria-pressed={activeCategory === cat.id}
                 >
                   {cat.label}
                 </button>
               ))}
             </div>
             <span className={styles.resultCount}>{filtered.length} sản phẩm</span>
+            <label htmlFor="shop-sort" className="sr-only">Sắp xếp theo</label>
             <select
+              id="shop-sort"
               className={styles.sortSelect}
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -157,7 +203,7 @@ export default function Shop() {
           {/* Grid */}
           {filtered.length > 0 ? (
             <>
-              <ProductGrid products={visible} />
+              <div className="shop-grid"><ProductGrid products={visible} /></div>
               {canLoadMore && (
                 <div className={styles.loadMoreWrap}>
                   <button className="btn-loadmore" onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}>
@@ -181,7 +227,7 @@ export default function Shop() {
       </div>
 
       {/* Promo Section */}
-      <section className={styles.promo}>
+      <section className={`shop-promo ${styles.promo}`}>
         <div className={styles.promoCard}>
           <div className={styles.promoContent}>
             <div>

@@ -7,6 +7,8 @@ import Footer from '@components/layout/Footer/Footer'
 import Home from '@pages/Home/Home'
 import Shop from '@pages/Shop/Shop'
 import ProductDetail from '@pages/ProductDetail/ProductDetail'
+import Blog from '@pages/Blog/Blog'
+import BlogPost from '@pages/BlogPost/BlogPost'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -25,6 +27,8 @@ function AppLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:slug" element={<ProductDetail />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
       </Routes>
       <Footer />
     </>

@@ -1,30 +1,23 @@
 import { Link } from 'react-router-dom'
-import { useCart } from '@context/CartContext'
-import { useToast } from '@context/ToastContext'
 import { formatPrice } from '@data/products'
 import styles from './ProductCard.module.css'
 
 export default function ProductCard({ product }) {
-  const { addItem } = useCart()
-  const { showToast } = useToast()
-
-  const addToCart = (e) => {
-    e.preventDefault()
-    addItem(product)
-    showToast(`Đã thêm "${product.name}" vào giỏ hàng`)
-  }
+  const detailUrl = `/product/${product.slug}`
 
   return (
     <article className={`prod-card ${styles.card}`}>
-      <Link to={`/product/${product.slug}`} className={styles.imgWrap}>
+      <Link to={detailUrl} className={styles.imgWrap}>
         {product.badge && (
           <span className={`${styles.badge} ${product.badge === 'new' ? styles.badgeNew : styles.badgeSale}`}>
             {product.badge === 'new' ? 'Mới' : 'Giảm giá'}
           </span>
         )}
-        <div
+        <img
           className={styles.imgBg}
-          style={product.images?.[0] ? { backgroundImage: `url(${product.images[0]})` } : undefined}
+          src={product.images?.[0]}
+          alt={product.name}
+          loading="lazy"
         />
 
         {product.swatches?.length > 0 && (
@@ -40,14 +33,13 @@ export default function ProductCard({ product }) {
           </div>
         )}
 
-        <button className={styles.addBar} onClick={addToCart}>
+        <span className={styles.addBar}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <path d="M16 10a4 4 0 0 1-8 0" />
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
           </svg>
-          Thêm vào giỏ
-        </button>
+          Xem chi tiết
+        </span>
       </Link>
 
       <div className="card-body">
@@ -55,7 +47,7 @@ export default function ProductCard({ product }) {
           <span className="eyebrow">{product.collection}</span>
         )}
         <h3 className="card-name">
-          <Link to={`/product/${product.slug}`}>{product.name}</Link>
+          <Link to={detailUrl}>{product.name}</Link>
         </h3>
         <div className={styles.priceRow}>
           <span className={styles.price}>{formatPrice(product.price)}</span>

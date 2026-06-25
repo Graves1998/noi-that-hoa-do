@@ -1,0 +1,58 @@
+.header {
+  max-width: var(--max-w);
+  margin: 0 auto var(--sp-10);
+  padding: 0 var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  position: relative;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+}
+.center .eyebrowLight::after,
+.center :global(.eyebrow)::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.light :global(.eyebrow) {
+  color: var(--gold-light);
+}
+.eyebrowLight::after {
+  background: var(--gold-light) !important;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+.light .title {
+  color: var(--text-on-dark);
+}
+
+.link {
+  position: absolute;
+  right: var(--sp-8);
+  bottom: 0;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity var(--t-base) var(--ease);
+}
+.link:hover { opacity: .7; }
+
+@media (max-width: 760px) {
+  .link {
+    position: static;
+    margin-top: var(--sp-2);
+  }
+}

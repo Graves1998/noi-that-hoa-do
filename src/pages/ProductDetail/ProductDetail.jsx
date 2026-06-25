@@ -27,9 +27,30 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!product) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
-      gsap.from(imgRef.current, { opacity: 0, x: -30, duration: .7, ease: 'power3.out', delay: .1 })
-      gsap.from(infoRef.current, { opacity: 0, x: 30, duration: .7, ease: 'power3.out', delay: .2 })
+      // Gallery entrance with clip-path reveal
+      gsap.from(imgRef.current, {
+        clipPath: 'inset(8% 8% 8% 8%)',
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.15,
+      })
+
+      // Info panel stagger entrance
+      const infoChildren = infoRef.current?.children
+      if (infoChildren) {
+        gsap.from(infoChildren, {
+          opacity: 0, y: 35, stagger: 0.08, duration: 0.65, ease: 'power3.out', delay: 0.3,
+        })
+      }
+
+      // Related products stagger
+      gsap.from('.pd-related-card', {
+        opacity: 0, y: 50, scale: 0.95, stagger: 0.1, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: '.pd-related', start: 'top 80%' }
+      })
     })
     return () => ctx.revert()
   }, [product])
@@ -182,6 +203,16 @@ export default function ProductDetail() {
             </div>
           )}
 
+          {/* CTA */}
+          <div className={styles.ctaRow}>
+            <button className={styles.ctaBtn} type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+              </svg>
+              Thêm vào giỏ hàng
+            </button>
+          </div>
+
           {/* Product details accordion */}
           <div className={styles.detailsAccordion}>
             <Accordion items={accordionItems} />
@@ -191,12 +222,12 @@ export default function ProductDetail() {
 
       {/* Related products */}
       {related.length > 0 && (
-        <section className={styles.related}>
+        <section className={`pd-related ${styles.related}`}>
           <div className={styles.inner}>
             <span className="eyebrow">Có thể bạn cũng thích</span>
             <h2>Sản phẩm liên quan</h2>
             <div className={styles.relatedGrid}>
-              {related.map((p) => <ProductCard key={p.id} product={p} />)}
+              {related.map((p) => <div key={p.id} className="pd-related-card"><ProductCard product={p} /></div>)}
             </div>
           </div>
         </section>

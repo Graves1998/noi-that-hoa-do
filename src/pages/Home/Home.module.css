@@ -1,38 +1,43 @@
+/* ── Scroll Progress ──────────────────────── */
+.scrollProgress {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 201;
+  pointer-events: none;
+}
+
 /* ── Hero ─────────────────────────────────── */
 .hero {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: calc(var(--header-h) + var(--sp-16)) var(--sp-8) var(--sp-16);
+  min-height: 92vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: calc(var(--header-h) + var(--sp-10)) var(--sp-8) var(--sp-10);
   background:
     linear-gradient(160deg, rgba(199,163,93,.06) 0%, transparent 50%),
     var(--bg-page);
   position: relative;
   overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  right: -10%; top: 5%;
-  width: 55vw; height: 55vw;
-  max-width: 700px; max-height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(199,163,93,.07) 0%, transparent 70%);
-  pointer-events: none;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  gap: var(--sp-8);
 }
 
 .heroInner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  width: 100%;
+  padding-left: var(--sp-8);
 }
 
 .heroH1 {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
   font-weight: 600;
-  line-height: 1.08;
+  line-height: 1.15;
   letter-spacing: -.01em;
   color: var(--text-primary);
   margin: var(--sp-4) 0 var(--sp-5);
@@ -43,9 +48,9 @@
 }
 
 .heroSub {
-  font-size: clamp(.95rem, 1.5vw, 1.1rem);
+  font-size: clamp(.9rem, 1.4vw, 1.05rem);
   color: var(--text-muted);
-  max-width: 480px;
+  max-width: 440px;
   line-height: 1.7;
   margin-bottom: var(--sp-8);
 }
@@ -56,39 +61,61 @@
   flex-wrap: wrap;
 }
 
-/* ── Section Shared ─────────────────────────── */
-.sectionHeader {
+.heroImage {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  max-height: 600px;
+  will-change: transform;
+}
+.heroImage img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-top: calc(var(--header-h) + var(--sp-12));
+    padding-bottom: var(--sp-8);
+  }
+  .heroInner { padding-left: 0; }
+  .heroImage {
+    max-height: 400px;
+    aspect-ratio: 16/10;
+  }
+}
+
+/* ── Section Header ────────────────────────── */
+.sectionHeaderWrap {
   max-width: var(--max-w);
-  margin: 0 auto var(--sp-8);
-  padding: 0 var(--sp-8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
-  position: relative;
+  margin: 0 auto;
+  padding: 0 var(--sp-8) var(--sp-12);
 }
-.sectionHeader h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
+.center {
+  text-align: center;
 }
+
 .seeAll {
-  position: absolute;
-  right: var(--sp-8); bottom: 0;
-  font-size: .82rem;
+  display: inline-block;
+  margin-top: var(--sp-3);
+  font-size: .85rem;
   font-weight: 600;
-  letter-spacing: .08em;
   color: var(--gold);
   text-decoration: none;
-  text-transform: uppercase;
-  transition: opacity var(--t-base) var(--ease);
+  letter-spacing: .04em;
+  transition: color var(--t-base) var(--ease);
 }
-.seeAll:hover { opacity: .7; }
+.seeAll:hover {
+  color: var(--text-primary);
+}
 
 /* ── Category Section ───────────────────────── */
 .catSection {
-  padding: var(--sp-20) 0;
+  padding: var(--sp-24) 0;
   background: var(--bg-page);
 }
 
@@ -100,7 +127,7 @@
   grid-template-columns: repeat(5, 1fr);
   gap: var(--sp-4);
 }
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .catGrid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 560px) {
@@ -123,46 +150,25 @@
   transition: transform .55s var(--ease);
 }
 .catCard:hover .catImg { transform: scale(1.06); }
-.catLabel {
+
+.catOverlay {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 100%);
+  padding: var(--sp-10) var(--sp-4) var(--sp-4);
+}
+.catLabel {
   color: #fff;
   font-size: .82rem;
   font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
-  padding: var(--sp-5) var(--sp-4) var(--sp-4);
-}
-
-/* ── Featured Products ──────────────────────── */
-.featuredSection {
-  padding: var(--sp-20) 0;
-  background: var(--bg-subtle);
-}
-
-.prodGrid {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 var(--sp-8);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-5);
-}
-@media (max-width: 1100px) {
-  .prodGrid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 760px) {
-  .prodGrid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-  .prodGrid { grid-template-columns: 1fr; }
 }
 
 /* ── Story Section ──────────────────────────── */
 .storySection {
   padding: var(--sp-24) var(--sp-8);
-  background: var(--bg-page);
+  background: var(--bg-subtle);
 }
 
 .storyInner {
@@ -173,7 +179,7 @@
   gap: var(--sp-16);
   align-items: center;
 }
-@media (max-width: 800px) {
+@media (max-width: 960px) {
   .storyInner { grid-template-columns: 1fr; }
   .storyImg { order: -1; }
 }
@@ -185,6 +191,7 @@
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  line-height: 1.2;
 }
 .storyText p {
   color: var(--text-secondary);
@@ -195,10 +202,234 @@
 .storyImg {
   border-radius: var(--radius-card);
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/5;
+  will-change: transform;
 }
 .storyImg img {
-  width: 100%; height: 100%;
+  width: 100%; height: 120%;
   object-fit: cover;
   display: block;
+  will-change: transform;
+}
+
+/* ── 2-Image Showcase ──────────────────────── */
+.showcaseSection {
+  padding: var(--sp-24) var(--sp-8);
+  background: var(--bg-page);
+}
+
+.showcaseGrid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.showcaseImg {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  will-change: transform;
+}
+.showcaseImg img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+.showcaseCenter {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-8) 0;
+}
+
+.showcaseTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 0;
+}
+.showcaseTitle em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.showcaseDesc {
+  color: var(--text-secondary);
+  font-size: .9rem;
+  line-height: 1.7;
+  max-width: 320px;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .showcaseGrid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+  }
+  .showcaseCenter { order: -1; }
+  .showcaseImg { aspect-ratio: 16/10; max-height: 300px; }
+}
+
+/* ── Featured Products ──────────────────────── */
+.featuredSection {
+  padding: var(--sp-24) 0;
+  background: var(--bg-page);
+}
+
+.prodGrid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-8);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-6);
+}
+@media (max-width: 1100px) {
+  .prodGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 760px) {
+  .prodGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .prodGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Best Sellers ──────────────────────────── */
+.bestSection {
+  padding: var(--sp-24) 0;
+  background: var(--bg-subtle);
+}
+
+.bestGrid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-8);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+@media (max-width: 960px) {
+  .bestGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .bestGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Why Choose Us — Furnexa-style full-width text ── */
+.whySection {
+  padding: clamp(5rem, 10vw, 8rem) var(--sp-8);
+  background: var(--bg-dark);
+  text-align: center;
+}
+
+.whyInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.whyEyebrow {
+  color: var(--gold-light) !important;
+}
+.whyEyebrow::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.whyTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-weight: 500;
+  color: var(--text-on-dark);
+  line-height: 1.2;
+  margin: 0;
+}
+.whyTitle em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.whyIcon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.1em;
+  margin: 0 0.1em;
+}
+.whyIcon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Testimonial Wrapper ──────────────────── */
+
+/* ── Blog Wrapper ──────────────────────────── */
+.blogWrap {
+  padding: var(--sp-24) 0 var(--sp-16);
+  background: var(--bg-page);
+}
+
+/* ── CTA Box — Furnexa-style ────────────────── */
+.ctaBox {
+  max-width: 720px;
+  margin: 0 auto var(--sp-16);
+  padding: clamp(3rem, 6vw, 5rem) var(--sp-8);
+  background: var(--bg-dark);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-card);
+  text-align: center;
+}
+.ctaBoxTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 var(--sp-8);
+}
+
+/* ── Instagram CTA ─────────────────────────── */
+.instagramSection {
+  padding: var(--sp-20) var(--sp-8);
+  background: var(--bg-page);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.instaInner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.instaHandle {
+  font-family: var(--font-body);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+.instaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }

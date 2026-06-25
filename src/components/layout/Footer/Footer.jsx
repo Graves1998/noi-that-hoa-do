@@ -9,7 +9,7 @@ const linkColumns = [
       { label: 'Trang chủ', to: '/' },
       { label: 'Cửa hàng', to: '/shop' },
       { label: 'Giới thiệu', to: '#' },
-      { label: 'Blog', to: '#' },
+      { label: 'Blog', to: '/blog' },
       { label: 'FAQ', to: '#' },
     ],
   },
@@ -57,6 +57,7 @@ export default function Footer() {
                 type="email"
                 required
                 placeholder="Địa chỉ email của bạn"
+                aria-label="Địa chỉ email đăng ký bản tin"
               />
               <button className={styles.nlBtn} type="submit" aria-label="Đăng ký nhận tin">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
